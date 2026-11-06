@@ -512,7 +512,7 @@ const settingsManager = new (function () {
       for: "showBoatPaths",
       type: "checkbox",
       label: "Show boat paths",
-      note: "Draws a faint line showing the route a boat has travelled from where it was launched. Your own boats are shown in blue.",
+      note: "Draws a line showing the route a boat has travelled from where it was launched. Your own boats are blue, enemy boats heading for your territory are red, and other boats are white.",
     },
     {
       for: "highlightClanSpawns",

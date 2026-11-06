@@ -1,19 +1,27 @@
 import { definePatch, insert } from "../modUtils.js";
 
 // Draw the route a boat (ship) has travelled, from its launch point to its
-// current position. Own boats are tinted blue, other players' boats white.
-export default definePatch(({ modifyCode }) => {
+// current position. Own boats are tinted blue, enemy boats heading for the
+// viewing player's territory are red, and other boats are white.
+export default definePatch(({ modifyCode, matchCode, replace }) => {
+  // Capture the minified names of the tile-owner lookup used when a ship lands.
+  const { lj, mq } = matchCode(`var player=bQ.lj.mq(mF[mF.length-1]);`);
+
   const drawingCode = `
 if (__fx.settings.showBoatPaths) {
   ib.setTransform(1, 0, 0, 1, 0, 0);
   ib.lineCap = "round";
   ib.lineJoin = "round";
-  var __fxBpWidth = Math.max(1, fD * 2);
+  var __fxBpWidth = Math.max(1.5, fD * 2.2);
   for (var __fxBpIdx = 0; __fxBpIdx < fZ; __fxBpIdx++) {
     var __fxBpPath = bQ.z.mm[__fxBpIdx];
-    if (!__fxBpPath) continue;
+    if (!__fxBpPath || __fxBpPath.length === 0) continue;
     var __fxBpOwn = (mo[__fxBpIdx] >> 3) === aae;
-    ib.strokeStyle = __fxBpOwn ? "rgba(90, 170, 255, 0.85)" : "rgba(255, 255, 255, 0.28)";
+    var __fxBpIncoming = !__fxBpOwn
+      && bQ.__FXLJ__.__FXMQ__(__fxBpPath[__fxBpPath.length - 1]) === aae;
+    ib.strokeStyle = __fxBpOwn
+      ? "rgba(90, 170, 255, 0.95)"
+      : (__fxBpIncoming ? "rgba(255, 60, 60, 0.95)" : "rgba(255, 255, 255, 0.5)");
     ib.lineWidth = __fxBpWidth;
     ib.beginPath();
     var __fxBpStarted = false;
@@ -58,4 +66,8 @@ var iw=o8-nv;
 var iz=o9-nw;
 var ib=ws;
 ${insert(drawingCode)}`);
+
+  // Substitute the captured minified names after the code has been inserted.
+  replace("__FXLJ__", lj);
+  replace("__FXMQ__", mq);
 });
