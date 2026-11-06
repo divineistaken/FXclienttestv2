@@ -24,6 +24,7 @@ var settings = {
   displayTickNumber: true,
   useFullscreenMode: false,
   hoveringTooltip: true,
+  showBoatPaths: true,
   //"hideAllLinks": false,
   realisticNames: false,
   showPlayerDensity: true,
@@ -506,6 +507,12 @@ const settingsManager = new (function () {
       type: "checkbox",
       label: "Hovering tooltip",
       note: "Display map territory info constantly (on mouse hover) instead of only when right clicking on the map",
+    },
+    {
+      for: "showBoatPaths",
+      type: "checkbox",
+      label: "Show boat paths",
+      note: "Draws a faint line showing the route a boat has travelled from where it was launched. Your own boats are shown in blue.",
     },
     {
       for: "highlightClanSpawns",
