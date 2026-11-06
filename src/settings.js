@@ -25,6 +25,7 @@ var settings = {
   useFullscreenMode: false,
   hoveringTooltip: true,
   showBoatPaths: true,
+  showShipBattleIndication: true,
   //"hideAllLinks": false,
   realisticNames: false,
   showPlayerDensity: true,
@@ -513,6 +514,12 @@ const settingsManager = new (function () {
       type: "checkbox",
       label: "Show boat paths",
       note: "Draws a line showing the route a boat has travelled from where it was launched. Your own boats are blue, enemy boats heading for your territory are red, and other boats are white.",
+    },
+    {
+      for: "showShipBattleIndication",
+      type: "checkbox",
+      label: "Ship battle indication",
+      note: "Draws a battle line and marker between ships that are fighting, and shows a \"Ship intercepted!\" notification when another player targets one of your boats.",
     },
     {
       for: "highlightClanSpawns",
