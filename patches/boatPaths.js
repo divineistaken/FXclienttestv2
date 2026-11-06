@@ -193,7 +193,7 @@ ${insert(drawingCode)}`);
   replaceCode(
     `a8n[abr]=Math.max(abv-abt,0);aaE[abr]=4`,
     `a8n[abr]=Math.max(abv-abt,0);aaE[abr]=4;`
-      + `if(abv>0)(__fx.shipAttackers||(__fx.shipAttackers={}))[tt.mn[abr]]={p:i1,t:bi.kr()};`,
+      + `if(abv>0&&a8n[abr]===0)(__fx.shipAttackers||(__fx.shipAttackers={}))[tt.mn[abr]]={p:i1,t:bi.kr()};`,
     { dictionary: combatNames }
   );
 
