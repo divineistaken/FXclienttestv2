@@ -5,8 +5,8 @@ import { definePatch, insert } from "../modUtils.js";
 // viewing player's territory are red, and other boats are white.
 //
 // Also draw a battle marker between ships that are actively fighting and show
-// a notification when another player sends an interceptor after one of our
-// ships.
+// a red notification naming the attacker when one of our ships is destroyed in
+// battle.
 export default definePatch(({ modifyCode, matchCode, replace, replaceCode, replaceOne, escapeRegExp }) => {
   // Capture the minified names of the tile-owner lookup used when a ship lands.
   const { lj, mq } = matchCode(`var player=bQ.lj.mq(mF[mF.length-1]);`);
@@ -16,11 +16,18 @@ export default definePatch(({ modifyCode, matchCode, replace, replaceCode, repla
     dictionary: { iT: "iT", fX: "fX" },
   });
 
-  // Capture the notification object used for "Ship launched!" / "Ship
-  // intercepted!" messages.
-  const { bo } = matchCode(`bo.rp.iE(player);bQ.z.n5(player);`, {
-    dictionary: { iE: "iE", rp: "rp" },
-  });
+  // Capture the notification renderer, the player-name list, and the red
+  // flash colour used by the game's own messages.
+  const notification = matchCode(`aO.a0i(80,L(552),637,0,bE.qD,bE.pL,-1,false);`);
+  const playerNames = matchCode(`ah.a0j[player]+" supported "+ah.a0j[qs]+" with "`);
+  const flash = matchCode(`aaE[aC]?bE.pw:bE.pO`);
+
+  // Capture the ship id, attacker id, and tick count used when combat damages
+  // a ship.
+  const combat = matchCode(`var fZ=tt.mk;var mz=tt.mz;var mo=tt.mo;var a8n=tt.a8n;var aaE=tt.aaE;var jM=bQ.jM.jM;`);
+  const attacker = matchCode(`i1=mo[iR]>>3;nv=abU%aah;nw=~~((abU+0.5)/aah);`);
+  const clock = matchCode(`if(bi.kr()%2!==1){return}`);
+  const death = matchCode(`var a8n=tt.a8n;var aaE=tt.aaE;for(var aC=tt.mk-1;aC>=0;aC--){aaE[aC]=aaE[aC]>>1;if(a8n[aC]===0){bQ.mt.aZo(aC);bQ.aK5.aa7(aC)}}`);
 
   const drawingCode = `
 if (__fx.settings.showBoatPaths) {
@@ -176,18 +183,49 @@ ${insert(drawingCode)}`);
     (battle + endAnchor).replaceAll("$", "$$")
   );
 
-  // Notify the local player when another player intercepts one of their ships.
-  const messageNames = { bo, aE: names.aE };
+  // Remember which player last damaged each ship so we can name the attacker
+  // at the moment the ship is destroyed.
+  const combatNames = {
+    tt: combat.tt,
+    i1: attacker.i1,
+    bi: clock.bi,
+  };
   replaceCode(
-    `var aa3=bR.gB[2];bQ.z.ml[aa3]=64+bQ.z.ml[aa3]%64;bQ.mt.ei(ns,bQ.z.n3);`,
-    `var aa3=bR.gB[2];bQ.z.ml[aa3]=64+bQ.z.ml[aa3]%64;bQ.mt.ei(ns,bQ.z.n3);`
-      + `if (__fx.settings.showShipBattleIndication && player !== aE.fJ && (bQ.z.mo[aa3] >> 3) === aE.fJ) { bo.rp.iE(aE.fJ); }`,
-    { dictionary: messageNames }
+    `a8n[abr]=Math.max(abv-abt,0);aaE[abr]=4`,
+    `a8n[abr]=Math.max(abv-abt,0);aaE[abr]=4;`
+      + `if(abv>0)(__fx.shipAttackers||(__fx.shipAttackers={}))[tt.mn[abr]]={p:i1,t:bi.kr()};`,
+    { dictionary: combatNames }
   );
+
+  // Clear the attack records when a new game starts.
   replaceCode(
-    `bQ.z.ml[mw]=64+mp%64;bQ.mt.ei(ms,bQ.z.n3);`,
-    `bQ.z.ml[mw]=64+mp%64;bQ.mt.ei(ms,bQ.z.n3);`
-      + `if (__fx.settings.showShipBattleIndication && player !== aE.fJ && (bQ.z.mo[mw] >> 3) === aE.fJ) { bo.rp.iE(aE.fJ); }`,
-    { dictionary: messageNames }
+    `this.mk=0;this.n3=0;this.ky.fill(0);this.mm.fill(null)`,
+    `this.mk=0;this.n3=0;this.ky.fill(0);this.mm.fill(null);__fx.shipAttackers={};`
+  );
+
+  // When one of the local player's ships is destroyed in battle this tick,
+  // show a red message naming the player who delivered the final hit.
+  const deathNames = {
+    tt: death.tt,
+    aE: team.aE,
+    bi: clock.bi,
+    aO: notification.aO,
+    a0i: notification.a0i,
+    bE: notification.bE,
+    pL: notification.pL,
+    pw: flash.pw,
+    ah: playerNames.ah,
+    a0j: playerNames.a0j,
+  };
+  replaceCode(
+    `if(a8n[aC]===0){bQ.mt.aZo(aC);bQ.aK5.aa7(aC)}`,
+    `if(a8n[aC]===0){`
+      + `var __fxAtk=__fx.shipAttackers&&__fx.shipAttackers[tt.mn[aC]];`
+      + `if(__fx.settings.showShipBattleIndication&&(tt.mo[aC]>>3)===aE.fJ&&__fxAtk&&__fxAtk.t===bi.kr()){`
+      + `aO.a0i(180,"Ship intercepted by "+(ah.a0j[__fxAtk.p]||"Unknown"),637,0,bE.pw,bE.pL,-1,false);`
+      + `}`
+      + `if(__fx.shipAttackers){delete __fx.shipAttackers[tt.mn[aC]];}`
+      + `bQ.mt.aZo(aC);bQ.aK5.aa7(aC)`
+      + `}`
   );
 });

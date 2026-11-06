@@ -519,7 +519,7 @@ const settingsManager = new (function () {
       for: "showShipBattleIndication",
       type: "checkbox",
       label: "Ship battle indication",
-      note: "Draws a battle line and marker between ships that are fighting, and shows a \"Ship intercepted!\" notification when another player targets one of your boats.",
+      note: "Draws a battle line and marker between ships that are fighting, and shows a red \"Ship intercepted by <name>\" notification when one of your ships is destroyed in battle.",
     },
     {
       for: "highlightClanSpawns",
