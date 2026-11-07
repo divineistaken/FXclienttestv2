@@ -26,6 +26,7 @@ var settings = {
   hoveringTooltip: true,
   showBoatPaths: true,
   showShipBattleIndication: true,
+  applyRecommendedTerritorialSettings: true,
   //"hideAllLinks": false,
   realisticNames: false,
   showPlayerDensity: true,
@@ -520,6 +521,12 @@ const settingsManager = new (function () {
       type: "checkbox",
       label: "Ship battle indication",
       note: "Draws a battle line and marker between ships that are fighting, and shows a red \"Ship intercepted by <name>\" notification when one of your ships is destroyed in battle.",
+    },
+    {
+      for: "applyRecommendedTerritorialSettings",
+      type: "checkbox",
+      label: "Recommended territorial settings",
+      note: "Sets Resolution to Very High, Minimum Font Size to Very Small, Text Rendering Speed to Fast, and Place Balance Above to On. Turn this off to keep your own territorial settings.",
     },
     {
       for: "highlightClanSpawns",
