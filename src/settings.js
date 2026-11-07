@@ -24,8 +24,6 @@ var settings = {
   displayTickNumber: true,
   useFullscreenMode: false,
   hoveringTooltip: true,
-  showBoatPaths: true,
-  showShipBattleIndication: true,
   applyRecommendedTerritorialSettings: true,
   //"hideAllLinks": false,
   realisticNames: false,
@@ -509,18 +507,6 @@ const settingsManager = new (function () {
       type: "checkbox",
       label: "Hovering tooltip",
       note: "Display map territory info constantly (on mouse hover) instead of only when right clicking on the map",
-    },
-    {
-      for: "showBoatPaths",
-      type: "checkbox",
-      label: "Show boat paths",
-      note: "Draws a line showing the route a boat has travelled from where it was launched. Your own boats are blue, enemy boats heading for your territory are red, and other boats are white.",
-    },
-    {
-      for: "showShipBattleIndication",
-      type: "checkbox",
-      label: "Ship battle indication",
-      note: "Draws a battle line and marker between ships that are fighting, and shows a red \"Ship intercepted by <name>\" notification when one of your ships is destroyed in battle.",
     },
     {
       for: "applyRecommendedTerritorialSettings",
