@@ -11760,24 +11760,6 @@ function aZM() {
 			iw = (aaf + jD) / fO - nv,
 			iz = (aag + jE) / fO - nw,
 			ib = ws;
-		if (__fx.settings.showBoatPaths) {
-			ib.setTransform(1, 0, 0, 1, 0, 0), ib.lineCap = "round", ib.lineJoin = "round";
-			for (var __fxBpWidth = Math.max(1.5, 2.2 * fD), __fxBpIdx = 0; __fxBpIdx < fZ; __fxBpIdx++) {
-				var __fxBpPath = bQ.z.mm[__fxBpIdx];
-				if (__fxBpPath && 0 !== __fxBpPath.length) {
-					for (var __fxBpOwn = mo[__fxBpIdx] >> 3 === aae, __fxBpIncoming = !__fxBpOwn && bQ.lj.mq(__fxBpPath[__fxBpPath.length - 1]) === aae, __fxBpStarted = (ib.strokeStyle = __fxBpOwn ? "rgba(90, 170, 255, 0.95)" : __fxBpIncoming ?
-							"rgba(255, 60, 60, 0.95)" : "rgba(255, 255, 255, 0.5)", ib.lineWidth = __fxBpWidth, ib.beginPath(), !1), __fxBpMy = bQ.z.my[__fxBpIdx], __fxBpPt = 0; __fxBpPt <= __fxBpMy && __fxBpPt < __fxBpPath.length; __fxBpPt++) {
-						var __fxBpPos = bP.jJ(__fxBpPath[__fxBpPt]),
-							__fxBpSX = aaf * (__fxBpPos % aah / 16 - nv) / iw,
-							__fxBpPos = aag * (Math.floor(__fxBpPos / aah) / 16 - nw) / iz;
-						__fxBpStarted ? ib.lineTo(__fxBpSX, __fxBpPos) : (ib.moveTo(__fxBpSX, __fxBpPos), __fxBpStarted = !0)
-					}
-					__fxBpOwn = mz[__fxBpIdx], __fxBpIncoming = aaf * (__fxBpOwn % aah / 16 - nv) / iw, __fxBpOwn = aag * (Math.floor(__fxBpOwn / aah) / 16 - nw) / iz;
-					__fxBpStarted ? ib.lineTo(__fxBpIncoming, __fxBpOwn) : ib.moveTo(__fxBpIncoming, __fxBpOwn), ib.stroke()
-				}
-			}
-			ib.setTransform(1, 0, 0, 1, 0, 0)
-		}
 		for (ib.imageSmoothingEnabled = fO < 9, bD.sK.textAlign(ib, 1), bD.sK.textBaseline(ib, 1), aC = 0; aC < fZ; aC++) player = mo[aC] >> 3, iI = a8n[aC], aaX = .9 + .1 * Math.log10(iI), aPk = (iv = mz[aC]) % aah / 16 - aaX, iv = aag * (Math
 			.floor(iv / aah) / 16 - aaX - nw) / iz, aaZ = -2 * (aac = fO * aaX) * (1 + (aab = +(player === aae)) / 8), aab = aab * aac / 4, (aac = aaf * (aPk - nv) / iw) < aaZ || iv < aaZ || aaf + aab < aac || aag + aab < iv || (aPk = 2 *
 			aaX * fD, aaZ = aaX * fO, null === (aab = aad[player]) && (aad[player] = aab = function(player) {
@@ -11790,22 +11772,6 @@ function aZM() {
 				if (iI < 1e8) return .19;
 				return .15
 			}(iI) * aaZ)) < 6) || (ib.setTransform(1, 0, 0, 1, 0, 0), ib.fillStyle = aaE[aC] ? bE.pw : bE.pO, ib.font = bD.sK.u8(1, aaX), ib.fillText(bD.tI.a1X(iI), aac + aaZ, iv + aaZ + .1 * aaX));
-		if (__fx.settings.showShipBattleIndication) {
-			ib.setTransform(1, 0, 0, 1, 0, 0), ib.lineCap = "round", ib.lineJoin = "round";
-			for (var __fxBi = 0; __fxBi < fZ; __fxBi++)
-				if (aaE[__fxBi]) {
-					for (var __fxBdx, __fxBkPlayer, __fxBx2, __fxBjPos, __fxBmidX, __fxBmidY, __fxBx1, __fxBiPos = mz[__fxBi], __fxBiX = __fxBiPos % aah, __fxBiY = Math.floor(__fxBiPos / aah), __fxBiPlayer = mo[__fxBi] >> 3, __fxBj = -1, __fxBd =
-							14400, __fxBk = 0; __fxBk < fZ; __fxBk++) __fxBk === __fxBi || (__fxBkPlayer = mo[__fxBk] >> 3) == __fxBiPlayer || aE.iT && bj.fX[__fxBkPlayer] === bj.fX[__fxBiPlayer] && bj.fX[__fxBkPlayer] || (__fxBkPlayer = (
-						__fxBdx = __fxBiX - (__fxBkPlayer = mz[__fxBk]) % aah) * __fxBdx + (__fxBdx = __fxBiY - Math.floor(__fxBkPlayer / aah)) * __fxBdx) < __fxBd && (__fxBd = __fxBkPlayer, __fxBj = __fxBk);
-					__fxBj < 0 || __fxBj < __fxBi && aaE[__fxBj] || (__fxBmidX = ((__fxBx1 = aaf * (__fxBiPos % aah / 16 - nv) / iw) + (__fxBx2 = aaf * ((__fxBjPos = mz[__fxBj]) % aah / 16 - nv) / iw)) / 2, __fxBmidY = ((__fxBiPos = aag * (Math
-							.floor(__fxBiPos / aah) / 16 - nw) / iz) + (__fxBjPos = aag * (Math.floor(__fxBjPos / aah) / 16 - nw) / iz)) / 2, ib.setLineDash([6 * Math.max(1, fD), 4 * Math.max(1, fD)]), ib.strokeStyle =
-						"rgba(255, 110, 70, 0.9)", ib.lineWidth = Math.max(1.5, 1.8 * fD), ib.beginPath(), ib.moveTo(__fxBx1, __fxBiPos), ib.lineTo(__fxBx2, __fxBjPos), ib.stroke(), ib.setLineDash([]), __fxBx1 = Math.max(4, 3 * fD), ib
-						.beginPath(), ib.arc(__fxBmidX, __fxBmidY, 2.2 * __fxBx1, 0, 6.283185307179586), ib.fillStyle = "rgba(255, 70, 50, 0.18)", ib.fill(), ib.beginPath(), ib.arc(__fxBmidX, __fxBmidY, __fxBx1, 0, 6.283185307179586), ib
-						.fillStyle = "rgba(255, 70, 50, 0.95)", ib.fill(), ib.lineWidth = Math.max(1, .8 * fD), ib.strokeStyle = "rgba(255, 235, 220, 0.95)", ib.stroke(), __fxBiPos = .55 * __fxBx1, ib.beginPath(), ib.moveTo(__fxBmidX -
-							__fxBiPos, __fxBmidY - __fxBiPos), ib.lineTo(__fxBmidX + __fxBiPos, __fxBmidY + __fxBiPos), ib.moveTo(__fxBmidX + __fxBiPos, __fxBmidY - __fxBiPos), ib.lineTo(__fxBmidX - __fxBiPos, __fxBmidY + __fxBiPos), ib
-						.stroke())
-				} ib.setLineDash([]), ib.setTransform(1, 0, 0, 1, 0, 0)
-		}
 		ib.imageSmoothingEnabled = !1, ib.setTransform(1, 0, 0, 1, 0, 0)
 	}
 }
@@ -12075,7 +12041,7 @@ function aZN() {
 	this.l8 = 512, this.aa5 = 8, this.mk = 0, this.n3 = 0, this.mo = new Uint16Array(this.l8), this.mz = new Uint32Array(this.l8), this.aa4 = new Uint16Array(this.l8), this.a8n = new Uint32Array(this.l8), this.aaC = new Uint16Array(this.l8), this
 		.mn = new Uint16Array(this.l8), this.ml = new Uint8Array(this.l8), this.aaE = new Uint8Array(this.l8), this.mm = new Array(this.l8), this.my = new Uint16Array(this.l8), this.ky = new Uint8Array(aE.fW), this.a9t = new Uint16Array(this.aa5 * aE
 			.fW), this.dk = function() {
-			this.mk = 0, this.n3 = 0, this.ky.fill(0), this.mm.fill(null), __fx.shipAttackers = {}
+			this.mk = 0, this.n3 = 0, this.ky.fill(0), this.mm.fill(null)
 		}, this.n5 = function(player) {
 			var iI = bR.g6[0],
 				mp = bR.gB[1],
@@ -12089,7 +12055,7 @@ function aZN() {
 				this.my[fZ] = 0, this.n3 = (abT + 1) % 65536, this.ky[player] = abV + 1, this.a9t[abW] = fZ, this.mk++, bQ.mp.abN(player, mF[mF.length - 1], mp, abT, iI)
 		}, this.ee = function() {
 			bQ.mp.ee();
-			for (var __fxAtk, h7 = aE.fJ, ea = bQ.lj.aK2(h7), tt = (! function(tt) {
+			for (var h7 = aE.fJ, ea = bQ.lj.aK2(h7), tt = (! function(tt) {
 					for (var abb, mz = tt.mz, a8n = tt.a8n, aaE = tt.aaE, aa4 = tt.aa4, aaC = tt.aaC, mm = tt.mm, my = tt.my, tt = tt.mk, aah = bV.fk << 4, aC = tt - 1; 0 <= aC; aC--) {
 						var abc = mz[aC],
 							mF = mm[aC],
@@ -12134,10 +12100,7 @@ function aZN() {
 								if (!((abp = lp + abx[ft]) < 0 || abw <= abp))
 									for (abq = jM[abp], a1B = abq.length, ej = 0; ej < a1B; ej++) abr = abq[ej], lX = mo[abr] >> 3, i1 == lX || aby && aXP[i1] === aXP[lX] && aXP[i1] || (lX = mz[abr], (aBM = nv - lX % aah) * aBM + (aBM = nw -
 										~~((lX + .5) / aah)) * aBM < 14400 && (lX = a8n[abr], aBM = lX <= abu ? Math.max(1, bO.g0(lX + bO.g0(abu - lX, 10), 10)) : Math.max(1, bO.g0(abu, 10)), a8n[abr] = Math.max(lX - aBM, 0), aaE[
-										abr] = 4, 0 < lX) && 0 === a8n[abr] && ((__fx.shipAttackers || (__fx.shipAttackers = {}))[tt.mn[abr]] = {
-										p: i1,
-										t: bi.kr()
-									}))
+										abr] = 4))
 					}
 				}(this), ! function(tt) {
 					if (bi.kr() % 5 == 3)
@@ -12145,9 +12108,7 @@ function aZN() {
 							var iI = a8n[aC];
 							a8n[aC] = Math.max(iI - Math.max(1, iI >> 7), 0)
 						}
-				}(this), this), a8n = tt.a8n, aaE = tt.aaE, aC = tt.mk - 1; 0 <= aC; aC--) aaE[aC] = aaE[aC] >> 1, 0 === a8n[aC] && (__fxAtk = __fx.shipAttackers && __fx.shipAttackers[tt.mn[aC]], __fx.settings.showShipBattleIndication && tt.mo[aC] >>
-				3 === aE.fJ && __fxAtk && __fxAtk.t === bi.kr() && aO.a0i(180, "Ship intercepted by " + (ah.a0j[__fxAtk.p] || "Unknown"), 637, 0, bE.pw, bE.pL, -1, !1), __fx.shipAttackers && delete __fx.shipAttackers[tt.mn[aC]], bQ.mt.aZo(aC), bQ
-				.aK5.aa7(aC));
+				}(this), this), a8n = tt.a8n, aaE = tt.aaE, aC = tt.mk - 1; 0 <= aC; aC--) aaE[aC] = aaE[aC] >> 1, 0 === a8n[aC] && (bQ.mt.aZo(aC), bQ.aK5.aa7(aC));
 			bg.gz(h7, ea - bQ.lj.aK2(h7), 15)
 		}
 }
