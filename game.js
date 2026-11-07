@@ -2088,7 +2088,7 @@ function x0(x1, x2, x3, oO) {
 
 function dO() {
 	this.sb = new xB, this.buffer = new xC, this.qo = new xD, this.z = new xE, this.xF = new xG, this.dk = function() {
-		this.buffer.dk(), (new xH).dk(), this.xF.dk(), this.z.xI()
+		this.buffer.dk(), (new xH).dk(), this.xF.dk(), this.z.xI(), __fx.settings.applyRecommendedTerritorialSettings && (bm.buffer.data[1].value = 3, bm.buffer.data[9].value = 2, bm.buffer.data[11].value = 2, bm.buffer.data[7].value = 1)
 	}
 }
 
